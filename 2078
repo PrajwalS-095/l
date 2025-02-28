@@ -1,0 +1,46 @@
+int FindCommonDivisors(int a, int b)
+{
+    int divisors = 0;
+
+    if(a>b)
+        divisors = a;
+    else
+        divisors = b;
+
+    while(1)
+    {
+        if(a%divisors == 0 && b%divisors == 0)
+        {
+            printf("Max Divisors=%d\n",divisors);
+            return divisors;
+        }
+        divisors --;
+    }
+    return 0;
+}
+
+struct ListNode* CreateListNode(int value)
+{
+    struct ListNode* NewNode = (struct ListNode*)malloc(sizeof(struct ListNode));
+    NewNode->val = value;
+    NewNode->next = NULL;
+
+    return NewNode;
+}
+
+
+struct ListNode* insertGreatestCommonDivisors(struct ListNode* head) {
+    struct ListNode* temp = head;
+    struct ListNode* NewNode;
+    while(temp->next != NULL)
+    {
+        NewNode = CreateListNode(FindCommonDivisors(temp->val,temp->next->val));
+        NewNode->next = temp->next;
+        temp->next = NewNode;
+
+        temp = temp->next;
+        temp = temp->next;
+    }
+
+    return head;
+}
